@@ -1,5 +1,7 @@
 package com.example.carcontroller;
 
+import java.util.Objects;
+
 public class Car {
 
     private String manufacturer;
@@ -12,27 +14,16 @@ public class Car {
         this.badge = badge;
     }
 
-    public void setManufacturer(String manufacturer) {
-        this.manufacturer = manufacturer;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Car car = (Car) o;
+        return wheels == car.wheels && badge == car.badge && Objects.equals(manufacturer, car.manufacturer);
     }
 
-    public void setWheels(int wheels) {
-        this.wheels = wheels;
-    }
-
-    public String getManufacturer() {
-        return manufacturer;
-    }
-
-    public int getWheels() {
-        return wheels;
-    }
-
-    public boolean isBadge() {
-        return badge;
-    }
-
-    public void setBadge(boolean badge) {
-        this.badge = badge;
+    @Override
+    public int hashCode() {
+        return Objects.hash(manufacturer, wheels, badge);
     }
 }

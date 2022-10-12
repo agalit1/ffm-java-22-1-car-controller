@@ -1,18 +1,31 @@
 package com.example.carcontroller;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.springframework.stereotype.Repository;
 
+import java.util.*;
 
+@Repository
 public class CarRepository {
 
-    private List<Car> cars = new ArrayList<>();
+    private Map<String, Car> cars = new HashMap<>(Map.of(
+            "1", new Car("Volvo", 4, true),
+            "2", new Car("BMW", 4, false),
+            "3", new Car("Seat", 4, true)
+    ));
 
-    public List<Car> getCars() {
+    public Map<String, Car> getCars() {
         return this.cars;
     }
 
-    public void addCarToCars(Car car) {
-        this.cars.add(car);
+    public void addCarToCars(String id, Car car) {
+        this.cars.put(id, car);
+    }
+
+    public Car getCarById(String id) {
+        Car car = this.cars.get(id);
+        if (car == null) {
+            throw new NoSuchElementException("No car with id " + id + " found.");
+        }
+        return car;
     }
 }

@@ -1,15 +1,25 @@
 package com.example.carcontroller;
 
-import java.util.List;
+import org.springframework.stereotype.Service;
+import java.util.Map;
 
+@Service
 public class CarService {
-    private CarRepository carRepository = new CarRepository();
+    private CarRepository carRepository;
 
-    public void addCar(Car car) {
-        carRepository.addCarToCars(car);
+    public CarService(CarRepository carRepository) {
+        this.carRepository = carRepository;
     }
 
-    public List<Car> getCars() {
+    public void addCar(String id, Car car) {
+        carRepository.addCarToCars(id, car);
+    }
+
+    public Map<String, Car> getCars() {
         return carRepository.getCars();
+    }
+
+    public Car getCarById(String id) {
+        return carRepository.getCarById(id);
     }
 }

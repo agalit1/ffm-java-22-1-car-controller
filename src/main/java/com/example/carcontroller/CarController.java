@@ -2,23 +2,32 @@ package com.example.carcontroller;
 
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.Map;
 
 
 @RestController
 @RequestMapping("/car")
 public class CarController {
 
-    private CarService carService = new CarService();
+    private final CarService carService;
 
-    @PostMapping
-    public Car addCar(@RequestBody Car car) {
-        carService.addCar(car);
-        return car;
+    public CarController(CarService carService) {
+        this.carService = carService;
     }
 
+//    @PostMapping
+//    public Car addCar(@RequestBody Car car) {
+//        carService.addCar(id, car);
+//        return car;
+//    }
+
     @GetMapping
-    public List<Car> getCars() {
+    public Map<String, Car> getCars() {
         return carService.getCars();
+    }
+
+    @GetMapping("/{id}")
+    public Car getCarById(@PathVariable String id) {
+        return carService.getCarById(id);
     }
 }
